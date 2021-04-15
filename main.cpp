@@ -18,7 +18,7 @@ int main()
     config.particle_gravity = 9.81;
     config.particle_bounce_friction = 0.75;
 
-    config.cam_sensitivity = 0.0025;
+    config.cam_sensitivity = 0.0002;
     config.cam_speed = 2;
     config.cam_fov = 100;
 

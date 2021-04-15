@@ -19,6 +19,8 @@ void __key_callback(GLFWwindow *window, int key, int scancode, int action, int m
     {
         std::clog << "[GLFW / key input] toggled Fullscreen mode   " << std::endl;
         GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+        const GLFWvidmode* vid_mode = glfwGetVideoMode(monitor);
+
         int xpos, ypos, width, height;
         glfwGetMonitorWorkarea(monitor, &xpos, &ypos, &width, &height);
         if (glfwGetWindowMonitor(window) == nullptr) // set to fullscreen mode
@@ -27,7 +29,7 @@ void __key_callback(GLFWwindow *window, int key, int scancode, int action, int m
         }
         else
         {
-            glfwSetWindowMonitor(window, NULL, xpos, ypos, width, height, GLFW_DONT_CARE);
+            glfwSetWindowMonitor(window, NULL, vid_mode->width / 4, vid_mode->height / 4, vid_mode->width / 2, vid_mode->height / 2, GLFW_DONT_CARE);
         }
     }
     if ((key == GLFW_KEY_TAB) && (action == GLFW_PRESS))
@@ -227,21 +229,21 @@ bool particle::application::init(configuration& config)
     const GLFWvidmode* vid_mode = glfwGetVideoMode(monitor);
 
     // create window
-    window = glfwCreateWindow(vid_mode->width, vid_mode->height, "", NULL, NULL);
+    window = glfwCreateWindow(vid_mode->width / 2, vid_mode->height / 2, "", NULL, NULL);
     if (window == NULL)
     {
         glfwTerminate();
         std::cerr << "[application / init] failed to open Window" << std::endl;
         return false;
     }
-    glfwSetWindowPos(window, 0, 0);
+    glfwSetWindowPos(window, vid_mode->width / 4, vid_mode->height / 4);
     glfwSetWindowTitle(window, "particles");
     glfwMakeContextCurrent(window);
 
     // set GLFW Key callback
     glfwSetKeyCallback(window, __key_callback);
 
-    glfwSetCursorPos(window, vid_mode->width / 2 + vid_mode->width / 4, vid_mode->height / 2 + vid_mode->height / 4);      // set mousepos to the center
+    glfwSetCursorPos(window, vid_mode->width / 4, vid_mode->height / 4);      // set mousepos to the center
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);   // disable cursor
 
     glfwSwapInterval(0);

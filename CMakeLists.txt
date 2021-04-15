@@ -44,7 +44,8 @@ if(WIN32)
     "${CMAKE_CURRENT_SOURCE_DIR}/lib/glfw-3.3.3/lib/glfw3.lib"
     "${CMAKE_CURRENT_SOURCE_DIR}/lib/glew-2.1.0/lib/Release/x64/glew32s.lib"
     "${CMAKE_CURRENT_SOURCE_DIR}/lib/glm/glm/lib/glm_static.lib"
-    "opengl32")
+    "opengl32"
+    "-fopenmp")
 else()
     # OpenGL stuff using CMake exporting
     find_package(glfw3 3.3 REQUIRED)
